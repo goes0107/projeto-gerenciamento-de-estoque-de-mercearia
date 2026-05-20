@@ -1,0 +1,25 @@
+{
+  "name": "projeto-gerenciamento-de-estoque-de-mercearia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goes0107/projeto-gerenciamento-de-estoque-de-mercearia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/goes0107/projeto-gerenciamento-de-estoque-de-mercearia/issues"
+  },
+  "homepage": "https://github.com/goes0107/projeto-gerenciamento-de-estoque-de-mercearia#readme",
+  "devDependencies": {
+    "typerscript": "^0.2.3"
+  }
+}
