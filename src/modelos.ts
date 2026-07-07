@@ -18,6 +18,48 @@ class Produto{
     }
 }
 
+class GerenciarProdutos{
+    produtos: Produto[] = []
+    
+    adicionarProduto(produto: Produto): string{
+        this.produtos.push(produto)
+        return(`Produto ${produto.nome} adicionado com sucesso!`)
+    }
+    
+    consultarProduto(id: number): Produto | undefined{
+        for(const produto of this.produtos){
+            if(produto.id === id){
+                return produto
+            }
+        }
+        return undefined
+    }
+
+    atualizarProduto(id: number, nome: string, quantidade: number, dataFabricacao: Date, dataValidade: Date): string{
+        const produto = this.consultarProduto(id)
+        if(!produto){
+            return `Produto não encontrado`
+        }else{
+            produto.nome = nome
+            produto.quantidade = quantidade
+            produto.dataFabricacao = dataFabricacao
+            produto.dataValidade = dataValidade
+            return `Produto atualizado com sucesso!`
+        }
+    }
+
+    removerProduto(id: number): string{
+        let indice = this.produtos.findIndex(p => p.id == id)
+        this.produtos.splice(indice, 1)
+        return `Produto removido com sucesso!`
+    }
+}
+// Cadastrar produto;
+// Editar dados do produto;
+// Remover produto;
+// Listar produtos cadastrados;
+// Consultar informações de um produto específico.
+
 class Fornecedor{
     Nome: string
     Contato: string
