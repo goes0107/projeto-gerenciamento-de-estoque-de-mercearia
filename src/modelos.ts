@@ -16,11 +16,15 @@ class Produto{
     estaVencido(): boolean {
         return this.dataValidade < new Date()
     }
+   
+    set Adicionarquantidade(valor: number){
+        this.quantidade += valor
+    }
 }
 
 class GerenciarProdutos{
     produtos: Produto[] = []
-    
+    removidos: Produto[] = []
     adicionarProduto(produto: Produto): string{
         this.produtos.push(produto)
         return(`Produto ${produto.nome} adicionado com sucesso!`)
@@ -50,15 +54,37 @@ class GerenciarProdutos{
 
     removerProduto(id: number): string{
         let indice = this.produtos.findIndex(p => p.id == id)
+        for(let produto of this.produtos){
+            if(produto.id === id){
+                this.removidos.push(produto)
+            }
+        }
         this.produtos.splice(indice, 1)
-        return `Produto removido com sucesso!`
+        
+        return `Produto removido com sucesso! \n ${Produto}`//posteriormente, o nome da variável da classe
     }
+    ListarRemovidos(){
+        return this.removidos
+    }
+
+    visualizarQuantidade(id: number){
+        for(let produto of this.produtos){
+            if(produto.id === id){
+             return (`Nome do produto: ${produto.nome}, Quantidade atual: ${produto.quantidade}`)
+            }
+    }
+    
+}
 }
 // Cadastrar produto;
 // Editar dados do produto;
 // Remover produto;
 // Listar produtos cadastrados;
 // Consultar informações de um produto específico.
+//Registrar saída de produtos do estoque;
+// Atualizar quantidades em tempo real;
+// Visualizar a quantidade atual de cada item.
+
 
 class Fornecedor{
     Nome: string
@@ -123,3 +149,10 @@ class GerenciarFornecedores{
 // Remover fornecedor;
 // Listar fornecedores cadastrados;
 // Consultar informações de um fornecedor específico.
+
+
+
+
+// 4. Controle de Estoque
+// O sistema deverá permitir o gerenciamento da quantidade disponível de cada produto.
+// Funcionalidades
