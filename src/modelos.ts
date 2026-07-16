@@ -1,9 +1,9 @@
 class Produto{
-    id: number
-    nome: string
-    quantidade: number
-    dataFabricacao: Date
-    dataValidade: Date
+    private id: number
+    private nome: string
+    private quantidade: number
+    private dataFabricacao: Date
+    private dataValidade: Date
 
     constructor(id: number, nome: string, quantidade: number, dataFabricacao: Date, dataValidade: Date){
         this.id = id
@@ -13,26 +13,70 @@ class Produto{
         this.dataValidade = dataValidade
     }
 
-    estaVencido(): boolean {
-        return this.dataValidade < new Date()
+    get Id() {
+        return this.id
     }
-   
+
+    get Nome() {
+        return this.nome
+    }
+
+    get Quantidade() {
+        return this.quantidade
+    }
+
+    get DataFabricacao() {
+        return this.dataFabricacao
+    }
+
+    get DataValidade() {
+        return this.dataValidade
+    }
+
+    set Nome(nome: string) {
+        this.nome = nome
+    }
+
+    set Quantidade(qtd: number) {
+        this.quantidade = qtd
+    }
+
+    set DataFabricacao(data: Date) {
+        this.dataFabricacao = data
+    }
+
+    set DataValidade(data: Date) {
+        this.dataValidade = data
+    }
+
     set Adicionarquantidade(valor: number){
         this.quantidade += valor
+    }
+
+    estaVencido(): boolean {
+        return this.dataValidade < new Date()
     }
 }
 
 class GerenciarProdutos{
-    produtos: Produto[] = []
-    removidos: Produto[] = []
+    private produtos: Produto[] = []
+    private removidos: Produto[] = []
+
+    get Produtos() {
+        return this.produtos
+    }
+    get Removidos(){
+        return this.removidos
+    }
+
     adicionarProduto(produto: Produto): string{
         this.produtos.push(produto)
-        return(`Produto ${produto.nome} adicionado com sucesso!`)
+        return(`Produto ${produto.Nome} adicionado com sucesso!`)
     }
     
     consultarProduto(id: number): Produto | undefined{
         for(const produto of this.produtos){
-            if(produto.id === id){
+            if(produto.Id === id){
                 return produto
             }
         }
@@ -44,18 +88,18 @@ class GerenciarProdutos{
         if(!produto){
             return `Produto não encontrado`
         }else{
-            produto.nome = nome
-            produto.quantidade = quantidade
-            produto.dataFabricacao = dataFabricacao
-            produto.dataValidade = dataValidade
+            produto.Nome = nome
+            produto.Quantidade = quantidade
+            produto.DataFabricacao = dataFabricacao
+            produto.DataValidade = dataValidade
             return `Produto atualizado com sucesso!`
         }
     }
 
     removerProduto(id: number): string{
-        let indice = this.produtos.findIndex(p => p.id == id)
+        let indice = this.produtos.findIndex(p => p.Id == id)
         for(let produto of this.produtos){
-            if(produto.id === id){
+            if(produto.Id === id){
                 this.removidos.push(produto)
             }
         }
@@ -63,14 +107,19 @@ class GerenciarProdutos{
         
         return `Produto removido com sucesso! \n ${Produto}`//posteriormente, o nome da variável da classe
     }
+
     ListarRemovidos(){
-        return this.removidos
+        return this.Removidos
+    }
+    
+    ListarProdutos(){
+        return this.Produtos
     }
 
     visualizarQuantidade(id: number){
         for(let produto of this.produtos){
-            if(produto.id === id){
-             return (`Nome do produto: ${produto.nome}, Quantidade atual: ${produto.quantidade}`)
+            if(produto.Id === id){
+             return (`Nome do produto: ${produto.Nome}, Quantidade atual: ${produto.Quantidade}`)
             }
     }
     
@@ -87,42 +136,52 @@ class GerenciarProdutos{
 
 
 class Fornecedor{
-    Nome: string
-    Contato: string
-    Status: boolean
-    Id: number
-    constructor(nome: string,id: number, contato: string, status: boolean){
-        this.Nome = nome
-        this.Id = id
-        this.Contato = contato
-        this.Status = status
+    nome: string
+    contato: string
+    status: boolean
+    private id: number
+    
+    constructor(nome: string,contato: string,status: boolean, id: number,  ){
+        this.nome = nome
+        this.id = id
+        this.contato = contato
+        this.status = status
     }
+    
+    get Id() { return this.id }
 }
 
 
 
 class GerenciarFornecedores{
-     fornecedores: Fornecedor[] = []
-     cadastrarFornecedor(fornecedor: Fornecedor): string{
+    private fornecedores: Fornecedor[] = []
+    
+    get Fornecedores() {
+        return this.fornecedores
+    }
+
+    cadastrarFornecedor(fornecedor: Fornecedor): string{
         this.fornecedores.push(fornecedor)
-        return(`Fornecedor ${fornecedor.Nome} Cadastrado com sucesso!`)
-     }
-     consultarFornecedor(id: number): Fornecedor | undefined{
+        return(`Fornecedor ${fornecedor.nome} Cadastrado com sucesso!`)
+    }
+
+    consultarFornecedor(id: number): Fornecedor | undefined{
         for(const fornecedor of this.fornecedores){
             if(fornecedor.Id === id){
                 return fornecedor
             }
         }
         return undefined
-     }
+    }
+
     editarFornecedor(nome: string, id: number, contato: string, status: boolean): string{
         const fornecedor = this.consultarFornecedor(id)
         if(!fornecedor){
             return `Fornecedor não cadastrado`
         }else{
-            fornecedor.Nome = nome
-            fornecedor.Contato = contato
-            fornecedor.Status = status
+            fornecedor.nome = nome
+            fornecedor.contato = contato
+            fornecedor.status = status
 
             return `Fornecedor editado com sucesso!`
         }
